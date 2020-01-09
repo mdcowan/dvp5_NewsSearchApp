@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
+import Gnews from './components/gnews/Gnews';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        Insert content here
+        <Gnews></Gnews>
       </header>
     </div>
   );
