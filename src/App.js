@@ -3,11 +3,13 @@ import './App.css';
 import Gnews from './components/gnews/Gnews';
 
 function App() {
+  
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="appHeader">
         <Gnews></Gnews>
       </header>
+
     </div>
   );
 }
