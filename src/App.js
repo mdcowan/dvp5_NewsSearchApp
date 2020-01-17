@@ -1,16 +1,12 @@
-import React from 'react';
-import './App.css';
-import Gnews from './components/gnews/Gnews';
+import React from 'react'
+import Routes from './components/Routes'
+import { BrowserRouter as Router} from 'react-router-dom'
 
 function App() {
-  
   return (
-    <div className="App">
-      <header className="appHeader">
-        <Gnews></Gnews>
-      </header>
-
-    </div>
+    <Router>
+      <Routes />
+    </Router>
   );
 }
 
