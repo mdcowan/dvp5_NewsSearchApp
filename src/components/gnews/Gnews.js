@@ -8,7 +8,7 @@ class Gnews extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {value: '', search: ''};
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,10 +25,10 @@ class Gnews extends Component{
         try{
             let url = new URL("https://gnews.io/api/v3/search?q="+ this.state.search +"&token=e72915371331d48c65a29e76c771da57")
             const results = await fetch(url)
-        if (!results.ok) throw Response.statusText //check for ok status
-        const data = await results.json() //convert the response to JSON
-        console.log(data.articleCount)
-        this.setState({newsSearchList: data, searchLoading: false})//add the parsed JSON to the state
+            if (!results.ok) throw Response.statusText //check for ok status
+            const data = await results.json() //convert the response to JSON
+            console.log(data.articleCount)
+            if (data.articleCount > 0) this.setState({newsSearchList: data, searchLoading: false})//add the parsed JSON to the state     
         }
         catch(error){
             console.log('Search Error: \n', error) //write out any error in the console
