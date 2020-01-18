@@ -1,17 +1,17 @@
 import React from 'react'
 import logo from '../../images/logo.png'
-import { MdSearch } from "react-icons/md"
+import { MdFavorite } from "react-icons/md"
 
 //dummy component
 const Header = props => {
     return (
         <header style={styles.header}>
-            <div>
+            <div style={styles.logoDisplay}>
                 <img src={logo} alt="Morning Coffee logo"/>
                 <h1>Morning Coffee</h1>
             </div>
             <div>
-                <h2>Some stuff here</h2>
+                <MdFavorite style={styles.fav}/>
             </div>
             
         </header>
@@ -22,13 +22,15 @@ export default Header
 
 const styles={
     header: {
+        backgroundColor: '#3d2622',
         display: 'flex', 
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignContent: 'center',
         color:'grey'
+        
     }, 
-    searchForm:{
+    logoDisplay:{
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -39,5 +41,11 @@ const styles={
         marginLeft: '1rem',
         border: 'none',
         flexGrow:'2'
+    },
+    fav:{
+        color: 'FFF',
+        marginTop: '1.5em',
+        height: '3em',
+        width: '3em'
     }
 }
