@@ -14,7 +14,7 @@ class Home extends Component{
                 <Header/>
                 <Switch>
                     <Route exact path='/' component={HomeDisplay} />
-                    <Route path='/:task/:topicId' render={Articles}/>  
+                    <Route path='/:task/:topicId' children={<Articles/>}/>  
                 </Switch>
             </div>
         )
