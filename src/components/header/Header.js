@@ -1,17 +1,18 @@
 import React from 'react'
 import logo from '../../images/logo.png'
 import { MdFavorite } from "react-icons/md"
+import { Link } from 'react-router-dom'
 
 //dummy component
 const Header = props => {
     return (
         <header style={styles.header}>
             <div style={styles.logoDisplay}>
-                <img src={logo} alt="Morning Coffee logo"/>
+                <Link to='/'><img src={logo} alt="Morning Coffee logo" style={styles.logoImage}/></Link>
                 <h1>Morning Coffee</h1>
             </div>
             <div>
-                <MdFavorite style={styles.fav}/>
+                <Link to='/favorites'><MdFavorite style={styles.fav}/></Link>
             </div>
             
         </header>

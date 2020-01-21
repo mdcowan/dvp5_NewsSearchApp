@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
     Switch, 
-    Route
+    Route,
+    Redirect
   } from 'react-router-dom'
 
   import Home from '../pages/Home'
@@ -12,8 +13,9 @@ import {
           return(
               <section>
                   <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route exact path='/favorites' component={Favorites} />
+                    <Route exact path='/' component={Home} />                  
+                    <Route path='/favorites' component={Favorites} />
+                    <Redirect to="/" />
                   </Switch>
               </section>
           )

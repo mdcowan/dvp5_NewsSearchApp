@@ -3,7 +3,6 @@ import { MdFavorite } from "react-icons/md"
 
 const NewsItem = props => {
     console.log(props)
-
     return(
         <article key={props.id} style={styles.list}>
             <div style={styles.articleTitle}>
