@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import HomeDisplay from '../../components/homeDisplay/HomeDisplay'
 
 function Articles (props) {
-    if (props.newsSearchList && props.newsSearchList.articleCount != 0){
+    if (props.newsSearchList && props.newsSearchList.articleCount !== 0){
         props.newsList = props.newsSearchList.articles.map((element, i) => {
             //pass through the key and value from the props comp.
             return <NewsItem key={i} val={element} />

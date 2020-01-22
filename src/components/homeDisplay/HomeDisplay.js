@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { MdSearch } from 'react-icons/md'
 import BusinessIcon from '../../images/business.png'
 import EntertainmentIcon from '../../images/entertainment.png'
@@ -9,9 +9,11 @@ import ScienceIcon from '../../images/science.png'
 import SportsIcon from '../../images/sports.png'
 import TechIcon from '../../images/tech.png'
 import WorldIcon from '../../images/world.png'
-
+import { withRouter } from "react-router";
 
 class HomeDisplay extends Component{
+ 
+
     //create an object to hold the user input
     state = {
         searchLoading: true,
@@ -25,7 +27,7 @@ class HomeDisplay extends Component{
 
     constructor(props) {
         super(props);
-        this.history = useHistory();
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTopicClick = this.handleTopicClick.bind(this);
@@ -47,8 +49,8 @@ class HomeDisplay extends Component{
             if (data.articleCount > 0) {
                 console.log(`Setting search data for: ${this.state.value}`)
                 this.setState({newsSearchList: data})//add the parsed JSON to the state   
-                this.state.history.push(`/search/${this.state.value}`)
-                console.log(this.state.history)
+                this.props.history.push(`/search/${this.state.value}`)
+                console.log(this.props.history)
             } 
 
         }
@@ -69,8 +71,8 @@ class HomeDisplay extends Component{
             if (data.articleCount > 0) {
                 console.log(`Setting topic data for: ${this.state.topic}`)
                 this.setState({newsSearchList: data})//add the parsed JSON to the state   
-                this.state.history.push(`/topic/${this.state.topic}`)
-                console.log(this.state.history)
+                this.props.history.push(`/search/${this.state.topic}`)
+                console.log(this.props.history)
             } 
 
         }
@@ -80,6 +82,7 @@ class HomeDisplay extends Component{
     }
 
     render(){
+        
         //The map object holds key-value pairs
         //Objects & Maps set keys to values, retrieve those values. 
         //delete keys, and detect whther something is stored as a key. 
@@ -89,8 +92,6 @@ class HomeDisplay extends Component{
         //index Optional: The array index of the current element
         //arr Optional: The array object the current element belongs to
         let newsList = ''
-
-
 
         return(
             <div>
@@ -105,14 +106,14 @@ class HomeDisplay extends Component{
                     <input type="submit" hidden/>
                 </form>
                 <div style={styles.topicDisplay}>
-                    <Link to={`/topic/business`}><img src={BusinessIcon} alt="business" onClick={this.handleTopicClick} style={styles.topicImage}/></Link>
-                    <Link to={`/topic/entertainment`}><img src={EntertainmentIcon} alt="entertainment" onClick={this.handleTopicClick}  style={styles.topicImage}/></Link>
-                    <Link to={'/topic/health'}><img src={HealthIcon} alt="health" onClick={this.handleTopicClick}  style={styles.topicImage}/></Link>
-                    <Link to={'/topic/nation'}><img src={NationIcon} alt="nation" onClick={this.handleTopicClick}  style={styles.topicImage}/></Link>
-                    <Link to={'/topic/science'}><img src={ScienceIcon} alt="science" onClick={this.handleTopicClick}  style={styles.topicImage}/></Link>
-                    <Link to={'/topic/sports'}><img src={SportsIcon} alt="sports" onClick={this.handleTopicClick}  style={styles.topicImage}/></Link>
-                    <Link to={'/topic/technology'}><img src={TechIcon} alt="technology" onClick={this.handleTopicClick}  style={styles.topicImage}/></Link>
-                    <Link to={'/topic/world'}><img src={WorldIcon} alt="world" onClick={this.handleTopicClick}  style={styles.topicImage}/></Link>
+                    <Link to={`/`} onClick={this.handleTopicClick}><img src={BusinessIcon} alt="business"  style={styles.topicImage}/></Link>
+                    <Link to={`/`} onClick={this.handleTopicClick}><img src={EntertainmentIcon} alt="entertainment"   style={styles.topicImage}/></Link>
+                    <Link to={'/'} onClick={this.handleTopicClick}><img src={HealthIcon} alt="health"   style={styles.topicImage}/></Link>
+                    <Link to={'/'} onClick={this.handleTopicClick}><img src={NationIcon} alt="nation" style={styles.topicImage}/></Link>
+                    <Link to={'/'} onClick={this.handleTopicClick}><img src={ScienceIcon} alt="science" style={styles.topicImage}/></Link>
+                    <Link to={'/'} onClick={this.handleTopicClick}><img src={SportsIcon} alt="sports" style={styles.topicImage}/></Link>
+                    <Link to={'/'} onClick={this.handleTopicClick}><img src={TechIcon} alt="technology" style={styles.topicImage}/></Link>
+                    <Link to={'/'} onClick={this.handleTopicClick}><img src={WorldIcon} alt="world" style={styles.topicImage}/></Link>
                 </div>  
             </div>
         )
@@ -148,4 +149,4 @@ const styles = {
 }
 
 
-export default HomeDisplay
+export default withRouter(HomeDisplay)

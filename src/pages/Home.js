@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch, useParams } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Header from '../components/header/Header'
 import Articles from '../components/articles/Articles'
 import HomeDisplay from '../components/homeDisplay/HomeDisplay'
