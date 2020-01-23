@@ -38,25 +38,13 @@ class HomeDisplay extends Component{
     }
 
     async handleSubmit(event) {
-        console.log(this.state.value);
+        // SB: the "submit" event need only trigger a url update.
+        //      as an aside, please add a suitably styled button for submission.
+        
         event.preventDefault();
-        try{
-            let url = new URL("https://gnews.io/api/v3/search?q="+ this.state.value +"&token=e72915371331d48c65a29e76c771da57")
-            const results = await fetch(url)
-            if (!results.ok) throw Response.statusText //check for ok status
-            const data = await results.json() //convert the response to JSON
-            console.log(data.articleCount)
-            if (data.articleCount > 0) {
-                console.log(`Setting search data for: ${this.state.value}`)
-                this.setState({newsSearchList: data})//add the parsed JSON to the state   
-                this.props.history.push(`/search/${this.state.value}`)
-                console.log(this.props.history)
-            } 
-
-        }
-        catch(error){
-            console.log('Search Error: \n', error) //write out any error in the console
-        }
+        
+        // SB: Navigates to the search page, which is responsible for loading it's query.
+        this.props.history.push("/search/" + this.state.value)
     }
     
     async handleTopicClick(event){
