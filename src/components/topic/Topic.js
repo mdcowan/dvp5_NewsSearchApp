@@ -16,7 +16,7 @@ class Topic extends Component {
     componentDidMount(){
         // SB: First, fetch the user's query from the router.
         // console.log(this.props);
-        let queryString = this.props.match.params.topicQuery;
+        let queryString = this.props.match.params.topicId;
         // console.log(queryString);
 
         // SB: Now, let's trigger the search.
@@ -42,6 +42,19 @@ class Topic extends Component {
         }
     }
 
+    addReadLater = (event,obj) => {
+        event.preventDefault()
+        console.log(obj)
+        // let newList = [...this.state.rList, obj]
+
+        // this.setState({
+        //     rList: newList
+        // });
+        
+        // //save the list to local storage
+        // localStorage.setItem('rList', JSON.stringify(newList))
+    }
+
     render(){
         return(
             <div>
@@ -54,7 +67,10 @@ class Topic extends Component {
                            //   the details accordingly.
                            //   the "Key" property is used by react to differentiate difference instances
                            //   of the same item, resulting from a map.  It just needs to be unique. 
-                            <NewsItem key={idx} val={item} />
+                            <NewsItem key={idx} val={item} 
+                            saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
+                            //above binds both the event and the data object (val) 
+                            //to the newsItem which are passed to the addReadLater() method
                             )
                      })
                 }
