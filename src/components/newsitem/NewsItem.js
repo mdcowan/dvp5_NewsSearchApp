@@ -7,7 +7,7 @@ const NewsItem = props => {
         <article key={props.id} style={styles.list}>
             <div style={styles.articleTitle}>
                 <h3>{props.val.title}</h3>
-                <MdFavorite />
+                <MdFavorite onClick={(e)=>{props.saveMe(e,props.val)}}/>
             </div>            
             <p>{props.val.description}</p>          
         </article>

@@ -41,6 +41,19 @@ class Search extends Component{
             console.log('Search Error: \n', error) //write out any error in the console
         }
     }
+
+    addReadLater = (event,obj) => {
+        event.preventDefault()
+        console.log(obj)
+        // let newList = [...this.state.rList, obj]
+
+        // this.setState({
+        //     rList: newList
+        // });
+        
+        // //save the list to local storage
+        // localStorage.setItem('rList', JSON.stringify(newList))
+    }
     
 
 
@@ -51,14 +64,15 @@ class Search extends Component{
                 {
                      this.state.newsSearchList.articles.map((item,idx)=>{
                         return (
-                           //   Send article data to custom component that receives
-                           //   it as an object property (item, above), and displays
-                           //   the details accordingly.
-                           //   the "Key" property is used by react to differentiate difference instances
-                           //   of the same item, resulting from a map.  It just needs to be unique. 
-                            <NewsItem key={idx} val={item} />
-                            )
-                     })
+                            //   Send article data to custom component that receives
+                            //   it as an object property (item, above), and displays
+                            //   the details accordingly.
+                            //   the "Key" property is used by react to differentiate difference instances
+                            //   of the same item, resulting from a map.  It just needs to be unique. 
+                            <NewsItem key={idx} val={item} 
+                            saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
+                        )
+                    })
                 }
             </div>
         )
