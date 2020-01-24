@@ -7,7 +7,8 @@ import {
 
   import Home from '../pages/Home'
   import Favorites from '../pages/Favorites'
-import Search from './search/Search'
+  import Search from './search/Search'
+  import Topic from './topic/Topic'
   
   class Routes extends Component{
       render(){
@@ -16,9 +17,8 @@ import Search from './search/Search'
                   <Switch>
                     <Route exact path='/' component={Home} />                  
                     <Route path='/favorites' component={Favorites} />
-                    { /* SB: Adding the dynamic route. */}
-                    { /*     Test this by typing in the url ending with .../search/books/ */}
                     <Route path='/search/:searchQuery' component={Search} />
+                    <Route path='/topic/:topicId' component={Topic}/>  
                     <Redirect to="/" />
                   </Switch>
               </section>
