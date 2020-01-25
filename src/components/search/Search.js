@@ -9,7 +9,8 @@ class Search extends Component{
             articleCount: 0,
             articles: []
         },
-        searchQuery: ""
+        searchQuery: "",
+        rList: []
     }
  
     // SB: Triggers upon loading this component.
@@ -21,6 +22,14 @@ class Search extends Component{
 
         // SB: Now, let's trigger the search.
         this.loadSearch(queryString);
+
+        //If there is something in local storage, save it to the state
+        if(localStorage.getItem('rList')){
+            let newList = JSON.parse(localStorage.getItem('rList'))
+            this.setState({
+                rList: newList
+            });
+        }
     }
 
     async loadSearch(queryString) {
@@ -30,7 +39,7 @@ class Search extends Component{
             const results = await fetch(url)
             if (!results.ok) throw Response.statusText //check for ok status
             const data = await results.json() //convert the response to JSON
-            console.log(data.articleCount)
+            //console.log(data.articleCount)
             if (data.articleCount > 0) {
                 console.log(`Setting search data for: ${queryString}`, data)
                 this.setState({newsSearchList: data})//add the parsed JSON to the state   
@@ -44,15 +53,15 @@ class Search extends Component{
 
     addReadLater = (event,obj) => {
         event.preventDefault()
-        console.log(obj)
-        // let newList = [...this.state.rList, obj]
+        //console.log(obj)
+        let newList = [...this.state.rList, obj]
 
-        // this.setState({
-        //     rList: newList
-        // });
-        
-        // //save the list to local storage
-        // localStorage.setItem('rList', JSON.stringify(newList))
+        this.setState({
+            rList: newList
+        });
+        //console.log(`rList: ${newList}`)
+        //save the list to local storage
+        localStorage.setItem('rList', JSON.stringify(newList))
     }
     
 

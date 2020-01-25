@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { withRouter } from "react-router"
 import Header from '../components/header/Header'
 
@@ -19,6 +18,8 @@ class Home extends Component{
     //create an object to hold the user input
     state = {
         value: '',
+        maxDate: undefined,
+        minDate: undefined,
         topic: ''
     }
 
@@ -29,15 +30,24 @@ class Home extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTopicClick = this.handleTopicClick.bind(this);
+        this.handleMaxDateChange = this.handleMaxDateChange.bind(this);
+        this.handleaMinDateChange = this.handleaMinDateChange.bind(this);
     }
     
     handleChange(event) {
         this.setState({value: event.target.value});
     }
 
+    handleMaxDateChange(day){
+        this.setState({maxDate: day})
+    }
+
+    handleaMinDateChange(day){
+        this.setState({minDate: day})
+    }
+
     async handleSubmit(event) {
-        //      TODO: Add a suitably styled button for submission.
-        
+       
         event.preventDefault();
         // SB: the "submit" event need only trigger a url update.
         // SB: Navigates to the search page, which is responsible for loading it's query.
@@ -64,21 +74,19 @@ class Home extends Component{
                             placeholder='Search'
                             onChange={this.handleChange} 
                             style={styles.searchInput}/>
-                        <input type="submit" style={styles.searchButton}/>
+                        <button type="submit" style={styles.searchButton}>Search</button>
                         <MdFilterList style={styles.searchIcon}/>
                     </form>
-                    <div style={styles.topicDiv}>
-                        <div style={styles.topicDisplay}>
-                            <img src={BusinessIcon} alt="business" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                            <img src={EntertainmentIcon} alt="entertainment" onClick={this.handleTopicClick}  style={styles.topicImage}/>
-                            <img src={HealthIcon} alt="health" onClick={this.handleTopicClick}  style={styles.topicImage}/>
-                            <img src={NationIcon} alt="nation"onClick={this.handleTopicClick} style={styles.topicImage}/>
-                            <img src={ScienceIcon} alt="science" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                            <img src={SportsIcon} alt="sports" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                            <img src={TechIcon} alt="technology" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                            <img src={WorldIcon} alt="world" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                        </div>  
-                    </div>
+                    <div style={styles.topicDisplay}>
+                        <img src={BusinessIcon} alt="business" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={EntertainmentIcon} alt="entertainment" onClick={this.handleTopicClick}  style={styles.topicImage}/>
+                        <img src={HealthIcon} alt="health" onClick={this.handleTopicClick}  style={styles.topicImage}/>
+                        <img src={NationIcon} alt="nation"onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={ScienceIcon} alt="science" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={SportsIcon} alt="sports" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={TechIcon} alt="technology" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={WorldIcon} alt="world" onClick={this.handleTopicClick} style={styles.topicImage}/> 
+                    </div>  
                 </div>
             </div>
         )
@@ -92,9 +100,6 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center'
     },
-    topicDiv:{
-        textAlign: "center",
-    },
     topicDisplay: {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr 1fr',
@@ -102,11 +107,14 @@ const styles = {
     },
     searchInput:{
         height: '2.25em',
-        width: '18.75em'
+        width: '18.75em',
+        borderWidth: '1px', 
+        borderColor:'#3d2622'
     },
     searchButton:{
         border: 'none',
-        height: '2.70em'
+        height: '2.70em',
+        backgroundColor: ''
     },
     searchIcon:{
         height: '2.25em',
@@ -116,7 +124,8 @@ const styles = {
     },
     topicImage:{
         cursor: 'pointer'
-    }
+    },
+
 }
 
 

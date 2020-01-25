@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../../components/header/Header'
-import NewsItem from '../newsitem/NewsItem'
+import TopicItem from '../newsitem/NewsItem'
 import { withRouter } from "react-router";
 
 class Topic extends Component {
@@ -9,7 +9,8 @@ class Topic extends Component {
             articleCount: 0,
             articles: []
         },
-        topicQuery: ""
+        topicQuery: "",
+        rList: []
     }
 
     // SB: Triggers upon loading this component.
@@ -21,6 +22,14 @@ class Topic extends Component {
 
         // SB: Now, let's trigger the search.
         this.loadTopicSearch(queryString);
+        
+        //If there is something in local storage, save it to the state
+        if(localStorage.getItem('rList')){
+            let newList = JSON.parse(localStorage.getItem('rList'))
+            this.setState({
+                rList: newList
+            });
+        }
     }
 
     async loadTopicSearch(queryString){
@@ -45,14 +54,14 @@ class Topic extends Component {
     addReadLater = (event,obj) => {
         event.preventDefault()
         console.log(obj)
-        // let newList = [...this.state.rList, obj]
+        let newList = [...this.state.rList, obj]
 
-        // this.setState({
-        //     rList: newList
-        // });
-        
-        // //save the list to local storage
-        // localStorage.setItem('rList', JSON.stringify(newList))
+        this.setState({
+            rList: newList
+        });
+        console.log(`rList: ${newList}`)
+        //save the list to local storage
+        localStorage.setItem('rList', JSON.stringify(newList))
     }
 
     render(){
@@ -67,7 +76,7 @@ class Topic extends Component {
                            //   the details accordingly.
                            //   the "Key" property is used by react to differentiate difference instances
                            //   of the same item, resulting from a map.  It just needs to be unique. 
-                            <NewsItem key={idx} val={item} 
+                            <TopicItem key={idx} val={item} 
                             saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
                             //above binds both the event and the data object (val) 
                             //to the newsItem which are passed to the addReadLater() method

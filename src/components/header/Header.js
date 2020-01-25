@@ -12,7 +12,7 @@ const Header = props => {
                 <h1>Morning Coffee</h1>
             </div>
             <div>
-                <Link to='/favorites'><MdFavorite style={styles.fav}/></Link>
+                <Link to='/readlater'><MdFavorite style={styles.fav}/></Link>
             </div>
             
         </header>
