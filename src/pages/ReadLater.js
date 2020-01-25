@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import Header from '../components/header/Header'
 import ReadItem from '../components/readItem/ReadItem'
 
+//images
+import ReadLaterLogo from '../images/favorites.png'
+
+
 class ReadLater extends Component{
     state = {
         rList: []
@@ -37,7 +41,10 @@ class ReadLater extends Component{
         return(
             <div>
                 <Header/>
-                <h2>Articles to Read Later</h2>
+                <div style={styles.sectionHeader}>
+                    <img src={ReadLaterLogo} style={styles.sectionLogo} alt="read later results"/>
+                    <h2 style={styles.sectionHeaderText}>Articles to Read Later</h2>
+                </div>
                 {this.state.rList.length > 0 ?                    
                     <div>
                         {
@@ -56,12 +63,29 @@ class ReadLater extends Component{
                 </div>
                 :
                 <div>
-                    <h3>Opps!</h3>
+                    <h3>Oops!</h3>
                     <p>There isn't anything in your read list! Add something by finding an article you like and clicking the heart icon next to it.</p>
                 </div>}
 
             </div>
         )
+    }
+}
+
+const styles = {
+    sectionHeader:{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flext start',
+        alignItems: 'flex-end',
+        margin: '1em 0'
+    },
+    sectionLogo:{
+        height: '4em',
+        width: '4em'
+    },
+    sectionHeaderText:{
+        margin: '0 .5em'
     }
 }
 

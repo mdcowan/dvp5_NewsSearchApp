@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Header from '../../components/header/Header'
 import NewsItem from '../../components/newsitem/NewsItem'
-import { withRouter } from "react-router";
+import { withRouter } from "react-router"
+import SearchLogo from '../../images/search.png'
 
 class Search extends Component{
     state = {
@@ -42,6 +43,7 @@ class Search extends Component{
             //console.log(data.articleCount)
             if (data.articleCount > 0) {
                 console.log(`Setting search data for: ${queryString}`, data)
+                this.setState({searchQuery: queryString})
                 this.setState({newsSearchList: data})//add the parsed JSON to the state   
             } 
 
@@ -70,23 +72,50 @@ class Search extends Component{
         return(
             <div>
                 <Header/>
-                {
-                     this.state.newsSearchList.articles.map((item,idx)=>{
-                        return (
-                            //   Send article data to custom component that receives
-                            //   it as an object property (item, above), and displays
-                            //   the details accordingly.
-                            //   the "Key" property is used by react to differentiate difference instances
-                            //   of the same item, resulting from a map.  It just needs to be unique. 
-                            <NewsItem key={idx} val={item} 
-                            saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
-                        )
-                    })
-                }
+                <div style={styles.sectionHeader}>
+                    <img src={SearchLogo} style={styles.sectionLogo} alt="search results"/>
+                    <h2 style={styles.sectionHeaderText}>Searching: {this.state.searchQuery}</h2>
+                </div>
+                {  this.state.newsSearchList.articleCount > 0 ? 
+                    <div>
+                        {
+                            this.state.newsSearchList.articles.map((item,idx)=>{
+                                return (
+                                    //   Send article data to custom component that receives
+                                    //   it as an object property (item, above), and displays
+                                    //   the details accordingly.
+                                    //   the "Key" property is used by react to differentiate difference instances
+                                    //   of the same item, resulting from a map.  It just needs to be unique. 
+                                    <NewsItem key={idx} val={item} 
+                                    saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
+                                )
+                            })
+                        }
+                    </div>:
+                    <div>
+                        <h3>Oops!</h3>
+                        <p>There are no results to display. Please try again.</p>
+                    </div>}
             </div>
         )
     }
 }
 
+const styles = {
+    sectionHeader:{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flext start',
+        alignItems: 'flex-end',
+        margin: '1em 0'
+    },
+    sectionLogo:{
+        height: '4em',
+        width: '4em'
+    },
+    sectionHeaderText:{
+        margin: '0 .5em'
+    }
+}
 
 export default withRouter(Search)

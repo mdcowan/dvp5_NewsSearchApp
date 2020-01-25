@@ -77,15 +77,15 @@ class Home extends Component{
                         <button type="submit" style={styles.searchButton}>Search</button>
                         <MdFilterList style={styles.searchIcon}/>
                     </form>
-                    <div style={styles.topicDisplay}>
-                        <img src={BusinessIcon} alt="business" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                        <img src={EntertainmentIcon} alt="entertainment" onClick={this.handleTopicClick}  style={styles.topicImage}/>
-                        <img src={HealthIcon} alt="health" onClick={this.handleTopicClick}  style={styles.topicImage}/>
-                        <img src={NationIcon} alt="nation"onClick={this.handleTopicClick} style={styles.topicImage}/>
-                        <img src={ScienceIcon} alt="science" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                        <img src={SportsIcon} alt="sports" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                        <img src={TechIcon} alt="technology" onClick={this.handleTopicClick} style={styles.topicImage}/>
-                        <img src={WorldIcon} alt="world" onClick={this.handleTopicClick} style={styles.topicImage}/> 
+                    <div style={styles.topicGrid}>
+                        <div style={styles.topicDisplay}><img src={WorldIcon} alt="world" onClick={this.handleTopicClick} style={styles.topicImage}/><h3 style={styles.topicText}>World</h3></div>
+                        <div style={styles.topicDisplay}><img src={NationIcon} alt="nation"onClick={this.handleTopicClick} style={styles.topicImage}/><h3 style={styles.topicText}>National</h3></div>
+                        <div style={styles.topicDisplay}><img src={BusinessIcon} alt="business" onClick={this.handleTopicClick} style={styles.topicImage}/><h3 style={styles.topicText}>Business</h3></div>
+                        <div style={styles.topicDisplay}><img src={TechIcon} alt="technology" onClick={this.handleTopicClick} style={styles.topicImage}/><h3 style={styles.topicText}>Technology</h3></div>
+                        <div style={styles.topicDisplay}><img src={EntertainmentIcon} alt="entertainment" onClick={this.handleTopicClick}  style={styles.topicImage}/><h3 style={styles.topicText}>Entertainment</h3></div>
+                        <div style={styles.topicDisplay}><img src={SportsIcon} alt="sports" onClick={this.handleTopicClick} style={styles.topicImage}/><h3 style={styles.topicText}>Sports</h3></div>
+                        <div style={styles.topicDisplay}><img src={ScienceIcon} alt="science" onClick={this.handleTopicClick} style={styles.topicImage}/><h3 style={styles.topicText}>Science</h3></div>
+                        <div style={styles.topicDisplay}><img src={HealthIcon} alt="health" onClick={this.handleTopicClick}  style={styles.topicImage}/><h3 style={styles.topicText}>Health</h3></div>
                     </div>  
                 </div>
             </div>
@@ -98,12 +98,20 @@ const styles = {
         display: 'flex', 
         flexflow: 'row wrap',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: '2em 0'
     },
-    topicDisplay: {
+    topicGrid: {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr 1fr',
         justifyItems: "center"
+    },
+    topicDisplay:{
+        marginBottom: '1em'
+    },
+    topicText:{
+        margin:'.125em 0 0 0',
+        textAlign: 'center'
     },
     searchInput:{
         height: '2.25em',
@@ -114,7 +122,8 @@ const styles = {
     searchButton:{
         border: 'none',
         height: '2.70em',
-        backgroundColor: ''
+        backgroundColor: '',
+        cursor: 'pointer'
     },
     searchIcon:{
         height: '2.25em',

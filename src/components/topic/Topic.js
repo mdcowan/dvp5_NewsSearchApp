@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../../components/header/Header'
+import TopicHeader from '../topicHeader/TopicHeader'
 import TopicItem from '../newsitem/NewsItem'
 import { withRouter } from "react-router";
 
@@ -42,6 +43,7 @@ class Topic extends Component {
             console.log(data.articleCount)
             if (data.articleCount > 0) {
                 console.log(`Setting topic data for: ${queryString}`)
+                this.setState({topicQuery: queryString})
                 this.setState({newsSearchList: data})//add the parsed JSON to the state   
             } 
 
@@ -68,6 +70,7 @@ class Topic extends Component {
         return(
             <div>
                 <Header/>
+                <TopicHeader topic={this.state.topicQuery} />
                 {
                      this.state.newsSearchList.articles.map((item,idx)=>{
                         return (
@@ -80,7 +83,7 @@ class Topic extends Component {
                             saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
                             //above binds both the event and the data object (val) 
                             //to the newsItem which are passed to the addReadLater() method
-                            )
+                        )
                      })
                 }
             </div>
