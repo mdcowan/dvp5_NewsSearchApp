@@ -1,13 +1,13 @@
 import React from 'react'
-import { MdFavorite } from "react-icons/md"
+import { MdDelete } from "react-icons/md"
 
-const NewsItem = props => {
+const ReadItem = props => {
     console.log(props)
     return(
         <article key={props.id} style={styles.list}>
             <div style={styles.articleTitle}>
                 <h3>{props.val.title}</h3>
-                <MdFavorite onClick={(e)=>{props.saveMe(e,props.val)}}/>
+                <MdDelete onClick={props.removeMe}/>
             </div>            
             <p>{props.val.description}</p>          
         </article>
@@ -25,4 +25,4 @@ const styles = {
     }
 }
 
-export default NewsItem;
+export default ReadItem;

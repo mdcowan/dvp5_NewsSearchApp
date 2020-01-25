@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import { withRouter } from "react-router"
 import Header from '../components/header/Header'
+
+//icons and images
 import { MdSearch } from 'react-icons/md'
-import NewsItem from '../components/newsitem/NewsItem'
+import { MdFilterList } from 'react-icons/md'
 import BusinessIcon from '../images/business.png'
 import EntertainmentIcon from '../images/entertainment.png'
 import HealthIcon from '../images/health.png'
@@ -14,120 +17,116 @@ import WorldIcon from '../images/world.png'
 class Home extends Component{
     //create an object to hold the user input
     state = {
-        searchLoading: true,
-        newsSearchList:{
-            articleCount: 0,
-            articles: []
-        } 
+        value: '',
+        maxDate: undefined,
+        minDate: undefined,
+        topic: ''
     }
 
     constructor(props) {
         super(props);
-        this.state = {value: ''};
-    
+
+        //event handler binding
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleTopicClick = this.handleTopicClick.bind(this);
+        this.handleMaxDateChange = this.handleMaxDateChange.bind(this);
+        this.handleaMinDateChange = this.handleaMinDateChange.bind(this);
     }
     
     handleChange(event) {
         this.setState({value: event.target.value});
     }
 
+    handleMaxDateChange(day){
+        this.setState({maxDate: day})
+    }
+
+    handleaMinDateChange(day){
+        this.setState({minDate: day})
+    }
+
     async handleSubmit(event) {
-        console.log(this.state.value);
+       
         event.preventDefault();
-        try{
-            let url = new URL("https://gnews.io/api/v3/search?q="+ this.state.value +"&token=e72915371331d48c65a29e76c771da57")
-            const results = await fetch(url)
-            if (!results.ok) throw Response.statusText //check for ok status
-            const data = await results.json() //convert the response to JSON
-            console.log(data.articleCount)
-            if (data.articleCount > 0) {
-                console.log('setting data')
-                this.setState({newsSearchList: data, searchLoading: false})//add the parsed JSON to the state   
-                console.log(this.state.newsSearchList) 
-            } 
-
-        }
-        catch(error){
-            console.log('Search Error: \n', error) //write out any error in the console
-        }
-      }
+        // SB: the "submit" event need only trigger a url update.
+        // SB: Navigates to the search page, which is responsible for loading it's query.
+        this.props.history.push("/search/" + this.state.value)
+    }
     
-
+    async handleTopicClick(event){
+        event.preventDefault();
+        // Clicking the topic button will navigate to the Topic page via the routes, which will load it's query
+        this.props.history.push("/topic/" + event.target.alt)
+    }
 
     render(){
-        //The map object holds key-value pairs
-        //Objects & Maps set keys to values, retrieve those values. 
-        //delete keys, and detect whther something is stored as a key. 
-
-        //Syntax: array.map(function(currentValue, index, arr), thisValue)
-        //currrentValue Required: the value of the current element
-        //index Optional: The array index of the current element
-        //arr Optional: The array object the current element belongs to
-        let newsList = ''
-
-        if (this.state.newsSearchList){
-            newsList = this.state.newsSearchList.articles.map((element, i) => {
-                //pass through the key and value from the props comp.
-                return <NewsItem key={i} val={element} />
-              })
-            
-        }
 
         return(
             <div>
-                <Header/>
+                <Header />
                 <div>
-                {this.state.searchLoading || !this.state.newsSearchList ? 
-                    <div>
-                        <form onSubmit={this.handleSubmit} style={styles.searchForm}>
-                            <MdSearch />
-                            <input 
-                                type="text" 
-                                value={this.state.value} 
-                                placeholder='Search'
-                                onChange={this.handleChange} 
-                                style={styles.searchInput}/>
-                            <input type="submit" hidden/>
-                        </form>
-                        <div>
-                            <img src={BusinessIcon} alt="business"/>
-                            <img src={EntertainmentIcon} alt="entertainment"/>
-                            <img src={HealthIcon} alt="health"/>
-                            <img src={NationIcon} alt="nation"/>
-                            <img src={ScienceIcon} alt="science"/>
-                            <img src={SportsIcon} alt="sports"/>
-                            <img src={TechIcon} alt="technology"/>
-                            <img src={WorldIcon} alt="world"/>
-                        </div>  
-                    </div>: 
-                    <div>
-                        {newsList}                        
-                    </div>
-                }
+                    <form onSubmit={this.handleSubmit} style={styles.searchForm}>
+                        <MdSearch style={styles.searchIcon}/>
+                        <input 
+                            type="text" 
+                            value={this.state.value} 
+                            placeholder='Search'
+                            onChange={this.handleChange} 
+                            style={styles.searchInput}/>
+                        <button type="submit" style={styles.searchButton}>Search</button>
+                        <MdFilterList style={styles.searchIcon}/>
+                    </form>
+                    <div style={styles.topicDisplay}>
+                        <img src={BusinessIcon} alt="business" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={EntertainmentIcon} alt="entertainment" onClick={this.handleTopicClick}  style={styles.topicImage}/>
+                        <img src={HealthIcon} alt="health" onClick={this.handleTopicClick}  style={styles.topicImage}/>
+                        <img src={NationIcon} alt="nation"onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={ScienceIcon} alt="science" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={SportsIcon} alt="sports" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={TechIcon} alt="technology" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        <img src={WorldIcon} alt="world" onClick={this.handleTopicClick} style={styles.topicImage}/> 
+                    </div>  
                 </div>
-
-
             </div>
         )
     }
 }
 
 const styles = {
-    searchform:{
+    searchForm:{       
         display: 'flex', 
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignContent: 'center',
+        flexflow: 'row wrap',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    topicDisplay: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+        justifyItems: "center"
     },
     searchInput:{
-
+        height: '2.25em',
+        width: '18.75em',
+        borderWidth: '1px', 
+        borderColor:'#3d2622'
+    },
+    searchButton:{
+        border: 'none',
+        height: '2.70em',
+        backgroundColor: ''
     },
     searchIcon:{
-        color: '#3d2622'
-    }
+        height: '2.25em',
+        width: '2.25em',
+        color: '#3d2622',
+        margin: '.5em'
+    },
+    topicImage:{
+        cursor: 'pointer'
+    },
+
 }
 
 
-export default Home
+export default withRouter(Home)
