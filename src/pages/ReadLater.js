@@ -9,9 +9,7 @@ import ReadLaterLogo from '../images/favorites.png'
 class ReadLater extends Component{
     state = {
         rList: []
-    }
-
-    
+    }    
 
     componentDidMount(){
         //If there is something in local storage, save it to the state
@@ -23,11 +21,17 @@ class ReadLater extends Component{
         }
     }
 
-    removeReadLater = key =>{
+    removeReadLater = (event, key) =>{
+        event.preventDefault()
+        //console.log(`Event current target:`)
+        //console.log(event.currentTarget.parentElement.parentElement)
+        console.log(key)
+        let i = parseInt(key)
+        console.log(i)
         //copy the list array
         let newList = this.state.rList
         //remove the clicked item
-        newList.splice(key, 1)
+        newList.splice(i, 1)
         //set the state with the updated list
         this.setState({
             rList: newList
@@ -55,8 +59,8 @@ class ReadLater extends Component{
                                 //   the details accordingly.
                                 //   the "Key" property is used by react to differentiate difference instances
                                 //   of the same item, resulting from a map.  It just needs to be unique. 
-                                <ReadItem key={idx} val={item} 
-                                removeMe={(idx)=>this.removeReadLater(idx)}/>
+                                <ReadItem key={idx} val={item} num={idx}
+                                removeMe={(event, key)=>this.removeReadLater(event, key)}/>
                                 )
                             })
                         }

@@ -65,8 +65,6 @@ class Search extends Component{
         //save the list to local storage
         localStorage.setItem('rList', JSON.stringify(newList))
     }
-    
-
 
     render(){
         return(
