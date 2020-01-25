@@ -5,6 +5,7 @@ import Header from '../components/header/Header'
 
 //icons and images
 import { MdSearch } from 'react-icons/md'
+import { MdFilterList } from 'react-icons/md'
 import BusinessIcon from '../images/business.png'
 import EntertainmentIcon from '../images/entertainment.png'
 import HealthIcon from '../images/health.png'
@@ -63,18 +64,21 @@ class Home extends Component{
                             placeholder='Search'
                             onChange={this.handleChange} 
                             style={styles.searchInput}/>
-                        <input type="submit" hidden/>
+                        <input type="submit" style={styles.searchButton}/>
+                        <MdFilterList style={styles.searchIcon}/>
                     </form>
-                    <div style={styles.topicDisplay}>
-                        <Link to={`/`} onClick={this.handleTopicClick}><img src={BusinessIcon} alt="business"  style={styles.topicImage}/></Link>
-                        <Link to={`/`} onClick={this.handleTopicClick}><img src={EntertainmentIcon} alt="entertainment"   style={styles.topicImage}/></Link>
-                        <Link to={'/'} onClick={this.handleTopicClick}><img src={HealthIcon} alt="health"   style={styles.topicImage}/></Link>
-                        <Link to={'/'} onClick={this.handleTopicClick}><img src={NationIcon} alt="nation" style={styles.topicImage}/></Link>
-                        <Link to={'/'} onClick={this.handleTopicClick}><img src={ScienceIcon} alt="science" style={styles.topicImage}/></Link>
-                        <Link to={'/'} onClick={this.handleTopicClick}><img src={SportsIcon} alt="sports" style={styles.topicImage}/></Link>
-                        <Link to={'/'} onClick={this.handleTopicClick}><img src={TechIcon} alt="technology" style={styles.topicImage}/></Link>
-                        <Link to={'/'} onClick={this.handleTopicClick}><img src={WorldIcon} alt="world" style={styles.topicImage}/></Link>
-                    </div>  
+                    <div style={styles.topicDiv}>
+                        <div style={styles.topicDisplay}>
+                            <img src={BusinessIcon} alt="business" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                            <img src={EntertainmentIcon} alt="entertainment" onClick={this.handleTopicClick}  style={styles.topicImage}/>
+                            <img src={HealthIcon} alt="health" onClick={this.handleTopicClick}  style={styles.topicImage}/>
+                            <img src={NationIcon} alt="nation"onClick={this.handleTopicClick} style={styles.topicImage}/>
+                            <img src={ScienceIcon} alt="science" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                            <img src={SportsIcon} alt="sports" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                            <img src={TechIcon} alt="technology" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                            <img src={WorldIcon} alt="world" onClick={this.handleTopicClick} style={styles.topicImage}/>
+                        </div>  
+                    </div>
                 </div>
             </div>
         )
@@ -82,21 +86,27 @@ class Home extends Component{
 }
 
 const styles = {
-    searchform:{
-
-        margin: '0 auto',
+    searchForm:{       
         display: 'flex', 
         flexflow: 'row wrap',
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    topicDiv:{
+        textAlign: "center",
     },
     topicDisplay: {
-        margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr 1fr'
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+        justifyItems: "center"
     },
     searchInput:{
         height: '2.25em',
         width: '18.75em'
+    },
+    searchButton:{
+        border: 'none',
+        height: '2.70em'
     },
     searchIcon:{
         height: '2.25em',
