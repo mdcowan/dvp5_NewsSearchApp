@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../../components/header/Header'
 import NewsItem from '../../components/newsitem/NewsItem'
+import NewsItemDetail from '../../components/newsItemDetail/NewsItemDetail'
 import { withRouter } from "react-router"
 import SearchLogo from '../../images/search.png'
 
@@ -11,7 +12,12 @@ class Search extends Component{
             articles: []
         },
         searchQuery: "",
-        rList: []
+        rList: [],
+
+        //set the modal view to not render and 
+        //declare a value to hold the modal article data
+        modal: false,
+        article: ""
     }
  
     // SB: Triggers upon loading this component.
@@ -66,16 +72,30 @@ class Search extends Component{
         localStorage.setItem('rList', JSON.stringify(newList))
     }
 
+    launchModal = (event,obj) => {
+        event.preventDefault()
+
+        if (obj){
+            this.setState({article: obj});
+            this.setState({modal: true})
+        }
+    }
+
+    closeModal(){
+        this.setState({article: ''});
+        this.setState({modal: false})
+    }
+
     render(){
         return(
             <div>
                 <Header/>
-                <div style={styles.sectionHeader}>
-                    <img src={SearchLogo} style={styles.sectionLogo} alt="search results"/>
-                    <h2 style={styles.sectionHeaderText}>Searching: {this.state.searchQuery}</h2>
+                <div className='sectionHeader'>
+                    <img src={SearchLogo} className='sectionLogo' alt="search results"/>
+                    <h2 className='sectionHeaderText'>Search Results: {this.state.searchQuery}</h2>
                 </div>
                 {  this.state.newsSearchList.articleCount > 0 ? 
-                    <div>
+                    <div className='cardsContainer'>
                         {
                             this.state.newsSearchList.articles.map((item,idx)=>{
                                 return (
@@ -85,7 +105,8 @@ class Search extends Component{
                                     //   the "Key" property is used by react to differentiate difference instances
                                     //   of the same item, resulting from a map.  It just needs to be unique. 
                                     <NewsItem key={idx} val={item} 
-                                    saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
+                                        launchModal={(event,obj)=>this.launchModal(event,obj)} 
+                                        saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
                                 )
                             })
                         }
@@ -94,25 +115,14 @@ class Search extends Component{
                         <h3>Oops!</h3>
                         <p>There are no results to display. Please try again.</p>
                     </div>}
+                <div>
+                    {this.state.modal ? 
+                    <NewsItemDetail val={this.state.article} 
+                        closeModal={this.closeModal}
+                        saveMe={(event,obj)=>this.addReadLater(event,obj)}/>:null}
+                </div>
             </div>
         )
-    }
-}
-
-const styles = {
-    sectionHeader:{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flext start',
-        alignItems: 'flex-end',
-        margin: '1em 0'
-    },
-    sectionLogo:{
-        height: '4em',
-        width: '4em'
-    },
-    sectionHeaderText:{
-        margin: '0 .5em'
     }
 }
 

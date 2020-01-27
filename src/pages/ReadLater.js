@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../components/header/Header'
 import ReadItem from '../components/readItem/ReadItem'
+import ReadItemDetail from '../components/readItemDetail/ReadItemDetail'
 
 //images
 import ReadLaterLogo from '../images/favorites.png'
@@ -8,7 +9,12 @@ import ReadLaterLogo from '../images/favorites.png'
 
 class ReadLater extends Component{
     state = {
-        rList: []
+        rList: [],
+        
+        //set the modal view to not render and 
+        //declare a value to hold the article data
+        modal: false,
+        article: ""
     }    
 
     componentDidMount(){
@@ -39,18 +45,32 @@ class ReadLater extends Component{
         //save the updated list to local storage
         localStorage.setItem('rList', JSON.stringify(newList))
     }
+    
+    launchModal = (event,obj) => {
+        event.preventDefault()
 
+        if (obj){
+            this.setState({article: obj});
+            this.setState({modal: true})
+        }
+    }
+
+    closeModal(event){
+        event.preventDefault()
+        this.setState({article: ''});
+        this.setState({modal: false})
+    }
 
     render(){
         return(
             <div>
                 <Header/>
-                <div style={styles.sectionHeader}>
-                    <img src={ReadLaterLogo} style={styles.sectionLogo} alt="read later results"/>
-                    <h2 style={styles.sectionHeaderText}>Articles to Read Later</h2>
+                <div className='sectionHeader'>
+                    <img src={ReadLaterLogo} className='sectionLogo' alt="read later results"/>
+                    <h2 className='sectionHeaderText'>Articles to Read Later</h2>
                 </div>
                 {this.state.rList.length > 0 ?                    
-                    <div>
+                    <div className='cardsContainer'>
                         {
                             this.state.rList.map((item,idx)=>{
                             return (
@@ -60,7 +80,8 @@ class ReadLater extends Component{
                                 //   the "Key" property is used by react to differentiate difference instances
                                 //   of the same item, resulting from a map.  It just needs to be unique. 
                                 <ReadItem key={idx} val={item} num={idx}
-                                removeMe={(event, key)=>this.removeReadLater(event, key)}/>
+                                    launchModal={(event,obj)=>this.launchModal(event,obj)} 
+                                    removeMe={(event, key)=>this.removeReadLater(event, key)}/>
                                 )
                             })
                         }
@@ -70,26 +91,12 @@ class ReadLater extends Component{
                     <h3>Oops!</h3>
                     <p>There isn't anything in your read list! Add something by finding an article you like and clicking the heart icon next to it.</p>
                 </div>}
-
+                {this.state.modal ? 
+                    <ReadItemDetail val={this.state.article} 
+                        closeModal={(event)=>this.closeModal(event)}
+                        saveMe={(event,obj)=>this.addReadLater(event,obj)}/>:null}
             </div>
         )
-    }
-}
-
-const styles = {
-    sectionHeader:{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flext start',
-        alignItems: 'flex-end',
-        margin: '1em 0'
-    },
-    sectionLogo:{
-        height: '4em',
-        width: '4em'
-    },
-    sectionHeaderText:{
-        margin: '0 .5em'
     }
 }
 
