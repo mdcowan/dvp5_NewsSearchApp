@@ -1,4 +1,83 @@
 .App {
-    max-width: 1000px;
+    max-width: 1366px;
     margin: auto;
   }
+
+  .sectionHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: flext start;
+    align-items: center;
+    margin: 1em 0;
+  }
+
+  .sectionLogo {
+    height: 4em;
+    width: 4em;
+    margin-left: .5em;
+  }
+  
+  .sectionHeaderText {
+    margin: 0 .5em;
+  }
+
+  .cardsContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
+
+  .article {
+    background: #F9BF2D;
+    margin: 0 20px 20px 20px;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 21em;
+  }
+
+  .articleTitle{
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+
+  }
+
+  .articleTitleText{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .articleActionIcon {
+    height: 1.5em;
+    width: 1.5em;
+    color: #3d2622;
+    cursor: pointer;
+  }
+
+  .modal {
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.8);
+    overflow: auto;
+  }
+
+  .modalArticle {
+    margin: 8em auto 2em auto;
+}
+
+.modalImage {
+  max-width: 21em
+}
+
+.button {
+  padding: 1px 2em;
+  border: rgba(61, 38, 34, .1) solid 1px;
+  border-radius: 4px;
+  text-decoration: none;
+}

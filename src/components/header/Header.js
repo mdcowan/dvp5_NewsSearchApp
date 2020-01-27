@@ -9,11 +9,9 @@ const Header = props => {
         <header style={styles.header}>
             <div style={styles.logoDisplay}>
                 <Link to='/'><img src={logo} alt="Morning Coffee logo" style={styles.logoImage}/></Link>
-                <h1>Morning Coffee</h1>
+                <h1 style={styles.logoText}>Morning Coffee</h1>
             </div>
-            <div>
-                <Link to='/readlater'><MdFavorite style={styles.fav}/></Link>
-            </div>
+            <Link to='/readlater'><MdFavorite style={styles.fav}/></Link>
             
         </header>
     )
@@ -28,7 +26,8 @@ const styles={
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignContent: 'center',
-        color:'grey'
+        color:'grey',
+        padding: '.5em 0'
         
     }, 
     logoDisplay:{
@@ -36,7 +35,10 @@ const styles={
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        margin: '0 1rem 0 1rem'
+        margin: '0 .5em'
+    },
+    logoText:{
+        margin: '0 .5em'
     },
     searchInput:{
         marginLeft: '1rem',
@@ -45,8 +47,14 @@ const styles={
     },
     fav:{
         color: 'FFF',
-        marginTop: '1.5em',
-        height: '3em',
-        width: '3em'
+        height: '2em',
+        width: '2em',
+        position: 'relative',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        margin: '0 .5em'
+    },
+    pageHeadingText:{
+
     }
 }

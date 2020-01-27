@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Header from '../../components/header/Header'
-import TopicItem from '../newsitem/NewsItem'
+import TopicHeader from '../topicHeader/TopicHeader'
+import TopicItem from '../topicItem/TopicItem'
+import NewsItemDetail from '../../components/newsItemDetail/NewsItemDetail'
 import { withRouter } from "react-router";
 
 class Topic extends Component {
@@ -10,7 +12,12 @@ class Topic extends Component {
             articles: []
         },
         topicQuery: "",
-        rList: []
+        rList: [],
+        
+        //set the modal view to not render and 
+        //declare a value to hold the modal article data
+        modal: false,
+        article: ""
     }
 
     // SB: Triggers upon loading this component.
@@ -42,6 +49,7 @@ class Topic extends Component {
             console.log(data.articleCount)
             if (data.articleCount > 0) {
                 console.log(`Setting topic data for: ${queryString}`)
+                this.setState({topicQuery: queryString})
                 this.setState({newsSearchList: data})//add the parsed JSON to the state   
             } 
 
@@ -64,27 +72,59 @@ class Topic extends Component {
         localStorage.setItem('rList', JSON.stringify(newList))
     }
 
+    launchModal = (event,obj) => {
+        event.preventDefault()
+
+        if (obj){
+            this.setState({article: obj});
+            this.setState({modal: true})
+        }
+    }
+
+    closeModal(){
+        this.setState({article: ''});
+        this.setState({modal: false})
+    }
+
     render(){
         return(
             <div>
                 <Header/>
-                {
-                     this.state.newsSearchList.articles.map((item,idx)=>{
-                        return (
-                           //   Send article data to custom component that receives
-                           //   it as an object property (item, above), and displays
-                           //   the details accordingly.
-                           //   the "Key" property is used by react to differentiate difference instances
-                           //   of the same item, resulting from a map.  It just needs to be unique. 
-                            <TopicItem key={idx} val={item} 
-                            saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
-                            //above binds both the event and the data object (val) 
-                            //to the newsItem which are passed to the addReadLater() method
+                <TopicHeader topic={this.state.topicQuery} />
+                <div style={styles.container}>
+                    {
+                        this.state.newsSearchList.articles.map((item,idx)=>{
+                            return (
+                            //   Send article data to custom component that receives
+                            //   it as an object property (item, above), and displays
+                            //   the details accordingly.
+                            //   the "Key" property is used by react to differentiate difference instances
+                            //   of the same item, resulting from a map.  It just needs to be unique. 
+                                <TopicItem key={idx} val={item} 
+                                    launchModal={(event,obj)=>this.launchModal(event,obj)} 
+                                    saveMe={(event,obj)=>this.addReadLater(event,obj)}/>
+                                //above binds both the event and the data object (val) 
+                                //to the newsItem which are passed to the addReadLater() method
                             )
-                     })
-                }
+                        })
+                    }
+                </div>
+                <div>
+                    {this.state.modal ? 
+                    <NewsItemDetail val={this.state.article} 
+                        closeModal={this.closeModal}
+                        saveMe={(event,obj)=>this.addReadLater(event,obj)}/>:null}
+                </div>
             </div>
         )
+    }
+}
+
+const styles = {
+    container:{
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'space-evenly'
     }
 }
 
