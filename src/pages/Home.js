@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router"
 import Header from '../components/header/Header'
+import Calendar from 'react-input-calendar'
 
 //icons and images
 import { MdSearch } from 'react-icons/md'
@@ -20,7 +21,8 @@ class Home extends Component{
         value: '',
         maxDate: undefined,
         minDate: undefined,
-        topic: ''
+        topic: '',
+        filter: false
     }
 
     constructor(props) {
@@ -38,12 +40,14 @@ class Home extends Component{
         this.setState({value: event.target.value});
     }
 
-    handleMaxDateChange(day){
-        this.setState({maxDate: day})
+    handleMaxDateChange(date){
+        this.setState({maxDate: date})
+        console.log(this.state.maxDate)
     }
 
-    handleaMinDateChange(day){
-        this.setState({minDate: day})
+    handleaMinDateChange(date){
+        this.setState({minDate: date})
+        console.log(this.state.minDate)
     }
 
     async handleSubmit(event) {

@@ -112,7 +112,7 @@ class Topic extends Component {
                 <div>
                     {this.state.modal ? 
                     <NewsItemDetail val={this.state.article} 
-                        closeModal={this.closeModal}
+                        closeModal={(event)=>this.closeModal(event)}
                         saveMe={(event,obj)=>this.addReadLater(event,obj)}/>:null}
                 </div>
             </div>
