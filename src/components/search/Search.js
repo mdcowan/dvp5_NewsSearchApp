@@ -40,7 +40,7 @@ class Search extends Component{
     }
 
     async loadSearch(queryString) {
-        console.log("LoadSearch: ", queryString);
+        //console.log("LoadSearch: ", queryString);
         try{
             let url = new URL("https://gnews.io/api/v3/search?q="+ queryString +"&token=e72915371331d48c65a29e76c771da57")
             const results = await fetch(url)
@@ -49,7 +49,20 @@ class Search extends Component{
             //console.log(data.articleCount)
             if (data.articleCount > 0) {
                 console.log(`Setting search data for: ${queryString}`, data)
-                this.setState({searchQuery: queryString})
+
+                //test to see if there were filters set in the query string
+                //if so, remove the filter text before setting the searchQuery in state
+                //the value of this variable is shown to the user as to what they searched
+                let filterIndex = queryString.indexOf("&")
+                let mainQuery = ''
+                if(filterIndex >= 0){
+                    mainQuery = queryString.slice(0,filterIndex)
+                    //console.log(mainQuery)
+                }
+                else{
+                    mainQuery = queryString
+                }
+                this.setState({searchQuery: mainQuery})
                 this.setState({newsSearchList: data})//add the parsed JSON to the state   
             } 
 
@@ -59,11 +72,15 @@ class Search extends Component{
         }
     }
 
+    //method to add the article to local storage
     addReadLater = (event,obj) => {
         event.preventDefault()
         //console.log(obj)
+
+        //create a new array of the current and add the new object selected by the user
         let newList = [...this.state.rList, obj]
 
+        //update the state with the newly created list 
         this.setState({
             rList: newList
         });
@@ -72,6 +89,7 @@ class Search extends Component{
         localStorage.setItem('rList', JSON.stringify(newList))
     }
 
+    //method to change the state to allow the details modal to render
     launchModal = (event,obj) => {
         event.preventDefault()
 
@@ -81,6 +99,7 @@ class Search extends Component{
         }
     }
 
+    //method to change the state to disallow the details modal to render
     closeModal(){
         this.setState({article: ''});
         this.setState({modal: false})
@@ -118,7 +137,7 @@ class Search extends Component{
                 <div>
                     {this.state.modal ? 
                     <NewsItemDetail val={this.state.article} 
-                        closeModal={this.closeModal}
+                        closeModal={(event)=>this.closeModal(event)}
                         saveMe={(event,obj)=>this.addReadLater(event,obj)}/>:null}
                 </div>
             </div>

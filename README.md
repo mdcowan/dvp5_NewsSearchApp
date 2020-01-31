@@ -1,7 +1,7 @@
 # DVP5 Project Repo for Marjana Cowan
-This is an interactive web application project with a particular focus on client-side code.  This project will incorporate one or more 3rd party APIs, and will have multiple view states. React will be used to help with code organization. 
+This is an interactive news search web application project with a particular focus on client-side code.  This project will incorporates the [GNews API](https://gnews.io/), and has multiple view states. React has been used to help with code organization. 
 
 - [x] Proof of Concept - Gnews API implementation
 - [x] Low-fidelity wireframes
 - [x] Final design composite
-- [ ] Project code complete
+- [x] Project code complete

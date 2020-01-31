@@ -2,7 +2,7 @@ import React from 'react'
 import { MdDelete } from "react-icons/md"
 
 const ReadItem = props => {
-    console.log(props)
+    //console.log(props)
 
     //convert the item's index (props.num) into a string, 
     //which makes it an object that can be passed in
