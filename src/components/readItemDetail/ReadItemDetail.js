@@ -22,21 +22,12 @@ const ReadItemDetail = props => {
                 }
                 <p>Published: {props.val.publishedAt}</p>  
                 <p>Source: {props.val.source.name}</p>
-                <div style={styles.buttonContainer}>
+                <div className='buttonContainer'>
                     <a href={props.val.url} target="_blank" rel="noopener noreferrer" className='button'>GO</a>  
                 </div>
             </article>
         </div>
     )
-}
-
-const styles = {
-    buttonContainer:{
-        width: '100%',
-        display: 'flex', 
-        flexDirection: 'row',
-        justifyContent: 'center'
-    }
 }
 
 export default ReadItemDetail;
