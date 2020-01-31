@@ -7,16 +7,16 @@ const NewsItemDetail = props => {
     return(
         <div className='modal'>
             <article key={props.id} className='article modalArticle'>
-            <MdClose onClick={props.closeModal} className='articleActionIcon'/>
+                <div className='articleTitle'>
+                    <MdClose onClick={props.closeModal} className='articleActionIcon'/>
+                    <MdFavorite onClick={(e)=>{props.saveMe(e,props.val)}} className='articleActionIcon'/>
+                </div>  
                 { props.val.image ?
                     <div>
                         <img src={props.val.image} alt={props.val.title} className='modalImage'/>
                     </div>:null
                 }
-                <div className='articleTitle'>
-                    <h3>{props.val.title}</h3>
-                    <MdFavorite onClick={(e)=>{props.saveMe(e,props.val)}} className='articleActionIcon'/>
-                </div>            
+                <h3>{props.val.title}</h3>        
                 { props.val.description ?
                     <div>
                         <p>{props.val.description}</p>

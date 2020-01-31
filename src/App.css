@@ -72,7 +72,8 @@
 }
 
 .modalImage {
-  max-width: 21em
+  margin-top: 1em;
+  max-width: 21em;
 }
 
 .button {
