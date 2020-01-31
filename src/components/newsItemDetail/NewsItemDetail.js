@@ -2,7 +2,7 @@ import React from 'react'
 import { MdFavorite } from "react-icons/md"
 
 const NewsItemDetail = props => {
-    console.log(props)
+    //console.log(props)
     return(
         <div className='modal' onClick={props.closeModal} >
             <article key={props.id} className='article modalArticle'>

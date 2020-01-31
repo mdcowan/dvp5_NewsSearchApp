@@ -2,7 +2,7 @@ import React from 'react'
 import { MdFavorite } from "react-icons/md"
 
 const NewsItem = props => {
-    console.log(props)
+    //console.log(props)
     return(
         <article key={props.id} className='article'>
             <div className='articleTitle'>

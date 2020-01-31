@@ -59,19 +59,22 @@ class Topic extends Component {
         }
     }
 
+    //method to add the article to local storage
     addReadLater = (event,obj) => {
         event.preventDefault()
-        console.log(obj)
+        //console.log(obj)
         let newList = [...this.state.rList, obj]
 
+        //create a new array of the current and add the new object selected by the user
         this.setState({
             rList: newList
         });
-        console.log(`rList: ${newList}`)
+        //console.log(`rList: ${newList}`)
         //save the list to local storage
         localStorage.setItem('rList', JSON.stringify(newList))
     }
 
+    //method to change the state to allow the details modal to render
     launchModal = (event,obj) => {
         event.preventDefault()
 
@@ -81,6 +84,7 @@ class Topic extends Component {
         }
     }
 
+    //method to change the state to disallow the details modal to render
     closeModal(){
         this.setState({article: ''});
         this.setState({modal: false})
